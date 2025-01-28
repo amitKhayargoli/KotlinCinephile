@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.IntroActivity"
+    android:background="@color/main_color">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="524dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/intro" />
+
+    <TextView
+        android:id="@+id/IntroText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="For Movies and TV Show Lovers"
+        android:textColor="@color/text_color"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/IntroText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Get started and enjoy Movies with Cinephile"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:textStyle="italic" />
+
+
+    <Button
+        android:id="@+id/IntroBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="51dp"
+        android:backgroundTint="@color/orange"
+        android:padding="16dp"
+        android:text="Get Started"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginForgetPass" />
+
+
+</LinearLayout>

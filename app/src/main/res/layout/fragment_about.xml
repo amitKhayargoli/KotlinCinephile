@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.AboutFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/AppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cinephile"
+            android:textSize="40sp"
+            android:textColor="@color/text_color"
+            />
+
+        <TextView
+            android:id="@+id/Version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Version: 1.0.1"
+            android:textSize="16sp"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <TextView
+            android:id="@+id/open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is a open source project."
+            android:textColor="@color/text_color"
+            android:textSize="20sp"
+            />
+
+
+        <TextView
+            android:id="@+id/githubtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show some love to my Github page."
+            android:textSize="20sp"
+            android:textColor="@color/text_color"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/githubImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/github" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="450px"
+            android:src="@drawable/coffee" />
+
+        <TextView
+            android:id="@+id/AboutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Made with ❤️ by Amit Khayargoli"
+            android:textColor="@color/text_color"
+
+            />
+
+
+
+    </LinearLayout>
+</FrameLayout>
