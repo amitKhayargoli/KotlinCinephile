@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "371165932677",
+    "firebase_url": "https://android-dcb82-default-rtdb.firebaseio.com",
+    "project_id": "android-dcb82",
+    "storage_bucket": "android-dcb82.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371165932677:android:85077794c5033abdbe4dec",
+        "android_client_info": {
+          "package_name": "com.example.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzL9F_7fVpCc-ccowN9jabgCwhUNXkKF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371165932677:android:fd0033a74cafa27bbe4dec",
+        "android_client_info": {
+          "package_name": "com.example.cinephile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzL9F_7fVpCc-ccowN9jabgCwhUNXkKF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
