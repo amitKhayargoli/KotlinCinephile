@@ -20,17 +20,6 @@ class SliderAdapter(private var sliderItems: MutableList<SliderItems>
     // Handler to manage the automatic scrolling
     private val handler = Handler(Looper.getMainLooper())
 
-    // Runnable to handle scrolling every 3 seconds
-//    private lateinit var runnable:Runnable
-//    init{
-//        runnable = Runnable{
-//            val currentItem = viewPager2.currentItem
-//            val nextItem = (currentItem+1)%sliderItems.size  // Loop back to 0 when at the end
-//            viewPager2.setCurrentItem(nextItem, true)  // Scroll to next item
-//            handler.postDelayed(runnable,3000)  // Schedule next scroll after 3 seconds
-//        }
-//
-//    }
     inner class SliderViewHolder(private val binding:ViewholderSliderBinding):RecyclerView.ViewHolder(binding.root) {
 
         fun bind(sliderItem: SliderItems){

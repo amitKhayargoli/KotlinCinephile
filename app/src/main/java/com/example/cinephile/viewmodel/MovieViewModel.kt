@@ -35,15 +35,17 @@ class MovieViewModel(val repository: MovieRepository) {
         get() = _allMovies
 
 
-    fun getMovieById(movieId: String){
-        repository.getMovieById(movieId){
-            movie,success,message->{
-                if(success){
-                    _movies.value = movie
-                }
-        }
-        }
-    }
+//    fun getMovieById(movieId: String){
+//        repository.getMovieById(movieId){
+//            movie,success,message->{
+//                if(success){
+//                    _movies.value = movie
+//                }
+//        }
+//        }
+//    }
+
+
 
     var _loadingState = MutableLiveData<Boolean>()
     var loadingState = MutableLiveData<Boolean>()

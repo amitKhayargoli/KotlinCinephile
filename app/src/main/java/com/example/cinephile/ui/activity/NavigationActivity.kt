@@ -47,7 +47,7 @@ class NavigationActivity : AppCompatActivity() {
             when (id) {
                 R.id.explorer -> replaceFragment(MainFragment())
                 R.id.profile -> replaceFragment(AboutFragment())
-        R.id.movies -> replaceFragment(MovieFragment())
+                R.id.movies -> replaceFragment(MovieFragment())
         R.id.Shows -> replaceFragment(ShowFragment())
 
 

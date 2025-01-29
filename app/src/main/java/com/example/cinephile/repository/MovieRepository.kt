@@ -18,4 +18,6 @@ interface MovieRepository {
                      callback: (MovieModel?,Boolean, String) -> Unit)
 
     fun getAllMovies(callback: (List<MovieModel>?,Boolean, String) -> Unit)
+
+//    fun getMovieByid(callback: (List<MovieModel>?, Boolean, String) -> Unit)
 }

@@ -43,6 +43,8 @@ class MovieFragment : Fragment() {
             val movieYear = binding.MovieYear.text.toString().trim()
             val movieRuntime = binding.MovieRuntime.text.toString().trim()
             val movieSummary = binding.movieSummary.text.toString().trim()
+            val IMDB = binding.IMDBInput.text.toString().trim()
+
 
             // Validate input
             if (movieTitle.isEmpty() || movieYear.isEmpty() || movieRuntime.isEmpty() || movieSummary.isEmpty()) {
@@ -54,7 +56,7 @@ class MovieFragment : Fragment() {
             loadingUtils.show()
 
             // Create MovieModel instance
-            val model = MovieModel("", movieTitle, movieYear, movieRuntime, movieSummary)
+            val model = MovieModel("", movieTitle, movieYear, movieRuntime, movieSummary, IMDB )
 
             // Add movie to database
             movieViewModel.addMovies(model) { success, message ->
