@@ -30,7 +30,6 @@ class MovieListAdapter(private val context: Context, private val items: ArrayLis
                 .apply(requestOptions)
                 .into(binding.moviePic)
 
-            // Handle item click
             binding.root.setOnClickListener {
                 val intent = Intent(context, FilmDetailActivity::class.java).apply {
                     putExtra("movieID", film.movieId)
@@ -54,6 +53,12 @@ class MovieListAdapter(private val context: Context, private val items: ArrayLis
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
         holder.bind(items[position])
+    }
+
+    fun updateData(products: List<MovieModel>){
+        items.clear()
+        items.addAll(products)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = items.size

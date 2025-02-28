@@ -1,13 +1,11 @@
 package com.example.cinephile.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -21,53 +19,18 @@ import com.example.cinephile.databinding.FragmentHomeBinding
 import com.example.cinephile.model.MovieModel
 import com.example.cinephile.model.ShowModel
 import com.example.cinephile.model.SliderItems
-import com.example.cinephile.repository.MovieRepositoryImpl
-import com.example.cinephile.repository.UserRepository
-import com.example.cinephile.repository.UserRepositoryImpl
-import com.example.cinephile.ui.activity.SearchActivity
-import com.example.cinephile.viewmodel.MovieViewModel
-import com.example.cinephile.viewmodel.UserViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 class MainFragment : Fragment() {
 
-    lateinit var  movieViewModel: MovieViewModel
+    private lateinit var binding: FragmentHomeBinding
+    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
-    var movieRepo = MovieRepositoryImpl()
+    private lateinit var movieListAdapter: MovieListAdapter
+    private val movieItems = ArrayList<MovieModel>()
 
-
-
-
-//        private var _binding: FragmentHomeBinding? = null
-//        private val binding get() = _binding!!
-
-    val database: FirebaseDatabase =
-        FirebaseDatabase.getInstance()
-
-    private fun initBanner() {
-        binding.progressBarSlider.visibility = View.VISIBLE
-
-        val lists = mutableListOf<SliderItems>()
-        lists.add(SliderItems(image = R.drawable.cap))
-        lists.add(SliderItems(image = R.drawable.dune))
-        lists.add(SliderItems(image = R.drawable.darkknight))
-        lists.add(SliderItems(image = R.drawable.fightclub))
-        lists.add(SliderItems(image = R.drawable.johnwick))
-        lists.add(SliderItems(image = R.drawable.wide))
-
-        binding.progressBarSlider.visibility = View.GONE
-        banners(lists)
-    }
-
-    lateinit var binding: FragmentHomeBinding
-    lateinit var userRepositoryImpl: UserRepositoryImpl
-    val auth = FirebaseAuth.getInstance()
-
+    private lateinit var showListAdapter: ShowListAdapter
+    private val showItems = ArrayList<ShowModel>()
 
     private val sliderHandler = Handler()
     private val sliderRunnable = Runnable {
@@ -79,115 +42,93 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        movieViewModel = MovieViewModel(MovieRepositoryImpl())
-
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        userRepositoryImpl = UserRepositoryImpl()
-//        fetchUserData()
-
-//        binding.editTextText3.setOnClickListener{
-//            val intent = Intent(requireContext(),SearchActivity::class.java)
-//            startActivity(intent)
-//        }
-
-
         return binding.root
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize banner
+        setupRecyclerViews()
+
         initBanner()
         initMovies()
         initShows()
     }
 
+    private fun setupRecyclerViews() {
+        movieListAdapter = MovieListAdapter(requireContext(), movieItems)
+        binding.recyclerViewTopMovies.layoutManager = LinearLayoutManager(
+            requireContext(), LinearLayoutManager.HORIZONTAL, false
+        )
+        binding.recyclerViewTopMovies.adapter = movieListAdapter
 
+        showListAdapter = ShowListAdapter(requireContext(), showItems)
+        binding.recyclerViewUpcoming.layoutManager = LinearLayoutManager(
+            requireContext(), LinearLayoutManager.HORIZONTAL, false
+        )
+        binding.recyclerViewUpcoming.adapter = showListAdapter
+    }
 
-    private fun initMovies(){
+    private fun initMovies() {
         val reference: DatabaseReference = database.reference.child("Movies")
         binding.progressBarTopMovies.visibility = View.VISIBLE
-        val items = ArrayList<MovieModel>()
 
-        reference.addListenerForSingleValueEvent(object : ValueEventListener{
+        reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                movieItems.clear()
+
                 if (snapshot.exists()) {
                     for (issue in snapshot.children) {
                         val movie = issue.getValue(MovieModel::class.java)
-                        movie?.let{items.add(it)}
-
+                        movie?.let { movieItems.add(it) }
                     }
-                    if (items.isNotEmpty()) {
-
-                        if (binding.recyclerViewTopMovies.adapter == null){
-
-                            binding.recyclerViewTopMovies.layoutManager = LinearLayoutManager(
-                                requireContext(), LinearLayoutManager.HORIZONTAL,
-                                false
-                            )
-
-                        binding.recyclerViewTopMovies.adapter =
-                            MovieListAdapter(requireContext(), items)
-
-                    }
-                    binding.progressBarTopMovies.visibility = View.GONE
-
+                    movieListAdapter.notifyDataSetChanged()
                 }
-            }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-
+                binding.progressBarTopMovies.visibility = View.GONE
             }
 
+            override fun onCancelled(error: DatabaseError) {}
         })
-
     }
 
-
-
-
-    private fun initShows(){
-        binding.progressBarUpcoming.visibility = View.VISIBLE
-        val items = ArrayList<ShowModel>()
+    private fun initShows() {
         val reference: DatabaseReference = database.reference.child("Shows")
-        reference.addListenerForSingleValueEvent(object : ValueEventListener{
+        binding.progressBarUpcoming.visibility = View.VISIBLE
 
+        reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    for(issue in snapshot.children){
-                        items.add(issue.getValue(ShowModel::class.java)!!)
+                showItems.clear()  // 🔥 Prevent duplicate items
 
+                if (snapshot.exists()) {
+                    for (issue in snapshot.children) {
+                        val show = issue.getValue(ShowModel::class.java)
+                        show?.let { showItems.add(it) }
                     }
-                    if(items.isNotEmpty()){
-                        binding.recyclerViewUpcoming.layoutManager = LinearLayoutManager(
-                            requireContext(),LinearLayoutManager.HORIZONTAL,
-                            false
-                        )
-
-                        binding.recyclerViewUpcoming.adapter = ShowListAdapter(requireContext(),items)
-
-                    }
-                    binding.progressBarUpcoming.visibility = View.GONE
-
+                    showListAdapter.notifyDataSetChanged()
                 }
+                binding.progressBarUpcoming.visibility = View.GONE
             }
 
-            override fun onCancelled(error: DatabaseError) {
-
-
-            }
-
+            override fun onCancelled(error: DatabaseError) {}
         })
-
     }
 
+    private fun initBanner() {
+        binding.progressBarSlider.visibility = View.VISIBLE
+
+        val lists = mutableListOf(
+            SliderItems(image = R.drawable.cap),
+            SliderItems(image = R.drawable.dune),
+            SliderItems(image = R.drawable.darkknight),
+            SliderItems(image = R.drawable.fightclub),
+            SliderItems(image = R.drawable.johnwick),
+            SliderItems(image = R.drawable.wide)
+        )
+
+        binding.progressBarSlider.visibility = View.GONE
+        banners(lists)
+    }
 
     private fun banners(lists: MutableList<SliderItems>) {
         binding.viewPager2.adapter = SliderAdapter(lists, binding.viewPager2)
@@ -222,10 +163,5 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         sliderHandler.postDelayed(sliderRunnable, 2000)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-//        binding = null
     }
 }
