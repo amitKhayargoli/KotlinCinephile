@@ -18,10 +18,10 @@
             android:background="@color/main_color">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageBrowse"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_height="200dp"
+                android:src="@drawable/image_placeholder" />
 
             <TextView
                 android:id="@+id/textView4"

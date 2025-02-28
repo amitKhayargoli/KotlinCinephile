@@ -21,7 +21,7 @@ class IntroActivity : AppCompatActivity() {
 
         binding.IntroBtn.setOnClickListener{
             val intent = Intent(this@IntroActivity,
-                FilmDetailActivity::class.java)
+                SignupActivity::class.java)
                 startActivity(intent)
         }
 

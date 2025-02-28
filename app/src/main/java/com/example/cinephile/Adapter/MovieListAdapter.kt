@@ -39,6 +39,7 @@ class MovieListAdapter(private val context: Context, private val items: ArrayLis
                     putExtra("movieYear", film.movieYear)
                     putExtra("movieImdb", film.IMDB)
                     putExtra("filmPic", film.imageUrl)
+                    putExtra("movieRuntime",film.movieRuntime)
                 }
                 context.startActivity(intent)
             }

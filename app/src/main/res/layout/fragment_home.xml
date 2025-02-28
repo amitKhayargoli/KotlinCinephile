@@ -12,7 +12,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="449dp"
         android:layout_height="965dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,63 +26,65 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="48dp">
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="32dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                <!--                <de.hdodenhof.circleimageview.CircleImageView-->
+                <!--                    android:id="@+id/profile_image"-->
+                <!--                    android:layout_width="50dp"-->
+                <!--                    android:layout_height="50dp"-->
 
-                    android:src="@drawable/pfp1"
-                    app:civ_border_color="#FF000000"
-                    app:civ_border_width="2dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <!--                    android:src="@drawable/pfp1"-->
+                <!--                    app:civ_border_color="#FF000000"-->
+                <!--                    app:civ_border_width="2dp"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <TextView
-                    android:id="@+id/DashName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:text="Hello Abraham Lincoln"
-                    android:textColor="@color/text_color"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/profile_image"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/DashName"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="30dp"-->
+                <!--                    android:text="Welcome"-->
+                <!--                    android:textColor="@color/text_color"-->
+                <!--                    android:textSize="20sp"-->
+                <!--                    android:textStyle="bold"-->
+                <!--                    app:layout_constraintStart_toEndOf="@+id/profile_image"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <TextView
-                    android:id="@+id/DashEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginBottom="13dp"
-                    android:text="xyz@gmail.com"
-                    android:textColor="@color/text_color"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/profile_image" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/DashEmail"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="30dp"-->
+                <!--                    android:layout_marginBottom="13dp"-->
+                <!--                    android:text="xyz@gmail.com"-->
+                <!--                    android:textColor="@color/text_color"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintStart_toEndOf="@+id/profile_image" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <EditText
-                android:id="@+id/editTextText3"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="16dp"
-                android:background="@drawable/rectangle"
-                android:drawableStart="@drawable/search"
-                android:drawablePadding="8dp"
-                android:ems="10"
-                android:hint="Search Movies.."
-                android:inputType="text"
-                android:padding="12dp"
+                        <EditText
+                            android:id="@+id/editTextText3"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_margin="16dp"
+                            android:background="@drawable/rectangle"
+                            android:drawableStart="@drawable/search"
+                            android:textStyle="normal"
+                            android:textSize="16sp"
+                            android:drawablePadding="8dp"
+                            android:ems="10"
+                            android:hint="Search Movies and TV Shows.."
+                            android:inputType="text"
+                            android:padding="12dp"
 
-                android:textColor="@color/text_color"
-                android:textColorHint="@color/text_color"
+                            android:textColor="@color/text_color"
+                            android:textColorHint="@color/text_color"
 
 
-                />
+                            />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -149,12 +151,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewTopMovies"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="230dp"
                     android:clipToPadding="false"
                     android:paddingStart="20dp"
                     android:paddingEnd="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-
 
 
                     app:layout_constraintEnd_toEndOf="parent"
@@ -187,9 +188,9 @@
                 <TextView
 
                     android:id="@+id/Shows"
-                    android:layout_marginStart="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
 
                     android:layout_weight="1"
                     android:text="Top TV Shows"
@@ -214,8 +215,8 @@
                     android:id="@+id/recyclerViewUpcoming"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:paddingEnd="12dp"
                     android:paddingStart="20dp"
+                    android:paddingEnd="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

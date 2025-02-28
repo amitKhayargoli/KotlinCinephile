@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.cinephile.databinding.ViewholderFilmBinding
 import com.example.cinephile.model.ShowModel
 import com.example.cinephile.ui.activity.FilmDetailActivity
+import com.example.cinephile.ui.activity.ShowDetailActivity
 
 class ShowListAdapter(private val context: Context, private val items: ArrayList<ShowModel>) :
     RecyclerView.Adapter<ShowListAdapter.Viewholder>() {
@@ -31,12 +32,17 @@ class ShowListAdapter(private val context: Context, private val items: ArrayList
                 .into(binding.moviePic)
 
             // Handle item click
-//            binding.root.setOnClickListener {
-//                val intent = Intent(context, FilmDetailActivity::class.java).apply {
-//                    putExtra("Show_ID", film.showId)
-//                }
-//                context.startActivity(intent)
-//            }
+            binding.root.setOnClickListener {
+                val intent = Intent(context, ShowDetailActivity::class.java).apply {
+                    putExtra("showID", show.showId)
+                    putExtra("showTitle", show.showName)
+                    putExtra("showDesc", show.showSummary)
+                    putExtra("showYear", show.showYear)
+                    putExtra("showImdb", show.IMDB)
+                    putExtra("showPic", show.imageUrl)
+                }
+                context.startActivity(intent)
+            }
         }
     }
 

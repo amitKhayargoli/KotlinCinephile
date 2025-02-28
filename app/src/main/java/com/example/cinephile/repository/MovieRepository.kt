@@ -1,5 +1,7 @@
 package com.example.cinephile.repository
 
+import android.content.Context
+import android.net.Uri
 import com.example.cinephile.model.MovieModel
 
 interface MovieRepository {
@@ -19,5 +21,8 @@ interface MovieRepository {
 
     fun getAllMovies(callback: (List<MovieModel>?,Boolean, String) -> Unit)
 
+
 //    fun getMovieByid(callback: (List<MovieModel>?, Boolean, String) -> Unit)
+
+
 }

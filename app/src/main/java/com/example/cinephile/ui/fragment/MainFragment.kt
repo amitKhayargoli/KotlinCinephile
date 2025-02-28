@@ -57,23 +57,25 @@ class MainFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         userRepositoryImpl = UserRepositoryImpl()
-        fetchUserData()
+//        fetchUserData()
+
+
         return binding.root
     }
 
-    fun fetchUserData(){
-        val userId = auth.currentUser?.uid
-
-        if(userId!=null){
-            userRepositoryImpl.getUserFromDatabase(userId){
-                    user,success,message-> if(success && user!=null){
-                val emailPrefix = user.email.split("@")[0]
-                binding.DashName.text = "Welcome $emailPrefix"
-                binding.DashEmail.text = "${user.email}"
-            }
-            }
-        }
-    }
+//    fun fetchUserData(){
+//        val userId = auth.currentUser?.uid
+//
+//        if(userId!=null){
+//            userRepositoryImpl.getUserFromDatabase(userId){
+//                    user,success,message-> if(success && user!=null){
+////                val emailPrefix = user.email.split("@")[0]
+////                binding.DashName.text = "Welcome"
+////                binding.DashEmail.text = "${user.email}"
+//            }
+//            }
+//        }
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -106,23 +108,29 @@ class MainFragment : Fragment() {
 
         reference.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    for(issue in snapshot.children){
-                        items.add(issue.getValue(MovieModel::class.java)!!)
+                if (snapshot.exists()) {
+                    for (issue in snapshot.children) {
+                        val movie = issue.getValue(MovieModel::class.java)
+                        movie?.let{items.add(it)}
 
                     }
-                    if(items.isNotEmpty()){
-                        binding.recyclerViewTopMovies.layoutManager = LinearLayoutManager(
-                            requireContext(),LinearLayoutManager.HORIZONTAL,
-                            false
-                        )
+                    if (items.isNotEmpty()) {
 
-                        binding.recyclerViewTopMovies.adapter = MovieListAdapter(requireContext(),items)
+                        if (binding.recyclerViewTopMovies.adapter == null){
+
+                            binding.recyclerViewTopMovies.layoutManager = LinearLayoutManager(
+                                requireContext(), LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+
+                        binding.recyclerViewTopMovies.adapter =
+                            MovieListAdapter(requireContext(), items)
 
                     }
                     binding.progressBarTopMovies.visibility = View.GONE
 
                 }
+            }
             }
 
             override fun onCancelled(error: DatabaseError) {
