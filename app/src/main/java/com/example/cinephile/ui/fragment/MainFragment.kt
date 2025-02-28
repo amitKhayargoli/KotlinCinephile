@@ -1,11 +1,13 @@
 package com.example.cinephile.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -19,8 +21,11 @@ import com.example.cinephile.databinding.FragmentHomeBinding
 import com.example.cinephile.model.MovieModel
 import com.example.cinephile.model.ShowModel
 import com.example.cinephile.model.SliderItems
+import com.example.cinephile.repository.MovieRepositoryImpl
 import com.example.cinephile.repository.UserRepository
 import com.example.cinephile.repository.UserRepositoryImpl
+import com.example.cinephile.ui.activity.SearchActivity
+import com.example.cinephile.viewmodel.MovieViewModel
 import com.example.cinephile.viewmodel.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -31,13 +36,33 @@ import com.google.firebase.database.ValueEventListener
 
 class MainFragment : Fragment() {
 
+    lateinit var  movieViewModel: MovieViewModel
+
+    var movieRepo = MovieRepositoryImpl()
+
+
+
+
 //        private var _binding: FragmentHomeBinding? = null
 //        private val binding get() = _binding!!
 
     val database: FirebaseDatabase =
         FirebaseDatabase.getInstance()
 
+    private fun initBanner() {
+        binding.progressBarSlider.visibility = View.VISIBLE
 
+        val lists = mutableListOf<SliderItems>()
+        lists.add(SliderItems(image = R.drawable.cap))
+        lists.add(SliderItems(image = R.drawable.dune))
+        lists.add(SliderItems(image = R.drawable.darkknight))
+        lists.add(SliderItems(image = R.drawable.fightclub))
+        lists.add(SliderItems(image = R.drawable.johnwick))
+        lists.add(SliderItems(image = R.drawable.wide))
+
+        binding.progressBarSlider.visibility = View.GONE
+        banners(lists)
+    }
 
     lateinit var binding: FragmentHomeBinding
     lateinit var userRepositoryImpl: UserRepositoryImpl
@@ -54,28 +79,24 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        movieViewModel = MovieViewModel(MovieRepositoryImpl())
+
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         userRepositoryImpl = UserRepositoryImpl()
 //        fetchUserData()
 
+//        binding.editTextText3.setOnClickListener{
+//            val intent = Intent(requireContext(),SearchActivity::class.java)
+//            startActivity(intent)
+//        }
+
 
         return binding.root
     }
 
-//    fun fetchUserData(){
-//        val userId = auth.currentUser?.uid
-//
-//        if(userId!=null){
-//            userRepositoryImpl.getUserFromDatabase(userId){
-//                    user,success,message-> if(success && user!=null){
-////                val emailPrefix = user.email.split("@")[0]
-////                binding.DashName.text = "Welcome"
-////                binding.DashEmail.text = "${user.email}"
-//            }
-//            }
-//        }
-//    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -86,20 +107,7 @@ class MainFragment : Fragment() {
         initShows()
     }
 
-    private fun initBanner() {
-        binding.progressBarSlider.visibility = View.VISIBLE
 
-        val lists = mutableListOf<SliderItems>()
-        lists.add(SliderItems(image = R.drawable.cap))
-        lists.add(SliderItems(image = R.drawable.dune))
-        lists.add(SliderItems(image = R.drawable.darkknight))
-        lists.add(SliderItems(image = R.drawable.fightclub))
-        lists.add(SliderItems(image = R.drawable.johnwick))
-        lists.add(SliderItems(image = R.drawable.wide))
-
-        binding.progressBarSlider.visibility = View.GONE
-        banners(lists)
-    }
 
     private fun initMovies(){
         val reference: DatabaseReference = database.reference.child("Movies")
@@ -141,6 +149,9 @@ class MainFragment : Fragment() {
         })
 
     }
+
+
+
 
     private fun initShows(){
         binding.progressBarUpcoming.visibility = View.VISIBLE

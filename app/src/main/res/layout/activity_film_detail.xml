@@ -75,17 +75,18 @@
                             android:textStyle="bold" />
 
                         <ImageView
-                            android:id="@+id/imageView7"
+                            android:id="@+id/editFilmButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            app:srcCompat="@drawable/bookmark" />
+                            app:srcCompat="@android:drawable/ic_menu_manage" />
 
                         <ImageView
-                            android:id="@+id/imageView8"
+                            android:id="@+id/deleteFilmButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/share" />
+                            android:layout_marginRight="0dp"
+                            app:srcCompat="@android:drawable/ic_menu_delete" />
 
                     </LinearLayout>
 

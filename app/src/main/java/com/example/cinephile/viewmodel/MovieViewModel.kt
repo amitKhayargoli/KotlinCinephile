@@ -7,27 +7,32 @@ import com.example.cinephile.repository.MovieRepository
 class MovieViewModel(val repository: MovieRepository) {
 
 
-    fun addMovies(movieModel: MovieModel,
-                  callback:(Boolean,String)->Unit){
-        repository.addMovies(movieModel,callback)
+    fun addMovies(
+        movieModel: MovieModel,
+        callback: (Boolean, String) -> Unit
+    ) {
+        repository.addMovies(movieModel, callback)
     }
 
-    fun updateMovie(movieId:String,
-                    data:MutableMap<String,Any>,
-                    callback: (Boolean, String) -> Unit){
-        repository.updateMovie(movieId,data,callback)
+    fun updateMovie(
+        movieId: String,
+        data: MutableMap<String, Any>,
+        callback: (Boolean, String) -> Unit
+    ) {
+        repository.updateMovie(movieId, data, callback)
     }
 
-    fun deleteMovie(movieId:String,
-                    callback: (Boolean, String) -> Unit){
-        repository.deleteMovie(movieId,callback)
+    fun deleteMovie(
+        movieId: String,
+        callback: (Boolean, String) -> Unit
+    ) {
+        repository.deleteMovie(movieId, callback)
 
     }
 
 
     var _movies = MutableLiveData<MovieModel?>()
     var movies = MutableLiveData<MovieModel?>()
-
         get() = _movies
 
     var _allMovies = MutableLiveData<List<MovieModel>?>()
@@ -35,32 +40,30 @@ class MovieViewModel(val repository: MovieRepository) {
         get() = _allMovies
 
 
-//    fun getMovieById(movieId: String){
-//        repository.getMovieById(movieId){
-//            movie,success,message->{
-//                if(success){
-//                    _movies.value = movie
-//                }
-//        }
-//        }
-//    }
-
+    fun getMovieById(movieId: String) {
+        repository.getMovieById(movieId) { movie, success, message ->
+            {
+                if (success) {
+                    _movies.value = movie
+                }
+            }
+        }
+    }
 
 
     var _loadingState = MutableLiveData<Boolean>()
     var loadingState = MutableLiveData<Boolean>()
-
         get() = _loadingState
 
-    fun getAllMovies(){
+    fun getAllMovies() {
         _loadingState.value = true
-        repository.getAllMovies(){
-            movies,success,message->{
-                if(success){
+        repository.getAllMovies() { movies, success, message ->
+            {
+                if (success) {
                     _allMovies.value = movies
                     _loadingState.value = false
                 }
-        }
+            }
         }
 
     }

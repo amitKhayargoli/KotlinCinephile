@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.cloudinary.Cloudinary
 import com.cloudinary.utils.ObjectUtils
 import com.example.cinephile.model.MovieModel
@@ -37,25 +38,47 @@ class MovieRepositoryImpl:MovieRepository {
         }
     }
 
+//    override fun updateMovie(
+//        movieId: String,
+//        data: MutableMap<String, Any>,
+//        callback: (Boolean, String) -> Unit
+//    ) {
+//        reference.child(movieId).updateChildren(data).addOnCompleteListener{
+//            if(it.isSuccessful){
+//                Log.d("UpdateMovie", "Movie ID: $movieId")
+//                callback(true,"Move Updated Successfully")
+//
+//            }else{
+//                callback(false,"${it.exception?.message}")
+//            }
+//        }
+//    }
+
+
     override fun updateMovie(
         movieId: String,
         data: MutableMap<String, Any>,
         callback: (Boolean, String) -> Unit
     ) {
-        reference.child(movieId).updateChildren(data).addOnCompleteListener{
-            if(it.isSuccessful){
-                callback(true,"Product Added Successfully")
+        Log.d("UpdateMovie", "Updating movie with ID: $movieId")
+        Log.d("UpdateMovie", "Data: $data")
 
-            }else{
-                callback(false,"${it.exception?.message}")
+        reference.child(movieId).updateChildren(data).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d("UpdateMovie", "Movie updated successfully")
+                callback(true, "Movie Updated Successfully")
+            } else {
+                Log.e("UpdateMovie", "Error updating movie: ${task.exception?.message}")
+                callback(false, "Update failed: ${task.exception?.message}")
             }
         }
     }
 
+
     override fun deleteMovie(movieId: String, callback: (Boolean, String) -> Unit) {
         reference.child(movieId).removeValue().addOnCompleteListener{
             if(it.isSuccessful){
-                callback(true,"Product Added Successfully")
+                callback(true,"Movie Deleted Successfully")
 
             }else{
                 callback(false,"${it.exception?.message}")

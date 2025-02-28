@@ -65,26 +65,26 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <EditText
-                            android:id="@+id/editTextText3"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_margin="16dp"
-                            android:background="@drawable/rectangle"
-                            android:drawableStart="@drawable/search"
-                            android:textStyle="normal"
-                            android:textSize="16sp"
-                            android:drawablePadding="8dp"
-                            android:ems="10"
-                            android:hint="Search Movies and TV Shows.."
-                            android:inputType="text"
-                            android:padding="12dp"
+<!--                        <EditText-->
+<!--                            android:id="@+id/editTextText3"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="50dp"-->
+<!--                            android:layout_margin="16dp"-->
+<!--                            android:background="@drawable/rectangle"-->
+<!--                            android:drawableStart="@drawable/search"-->
+<!--                            android:textStyle="normal"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:drawablePadding="8dp"-->
+<!--                            android:ems="10"-->
+<!--                            android:hint="Search Movies and TV Shows.."-->
+<!--                            android:inputType="text"-->
+<!--                            android:padding="12dp"-->
 
-                            android:textColor="@color/text_color"
-                            android:textColorHint="@color/text_color"
+<!--                            android:textColor="@color/text_color"-->
+<!--                            android:textColorHint="@color/text_color"-->
 
 
-                            />
+<!--                            />-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
