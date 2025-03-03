@@ -23,7 +23,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
     lateinit var movieViewModel: MovieViewModel
     private lateinit var binding: ActivityFilmDetailBinding
-    private lateinit var movieReference: DatabaseReference  // Firebase reference
+    private lateinit var movieReference: DatabaseReference
     private lateinit var currentMovie: MovieModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +53,6 @@ class FilmDetailActivity : AppCompatActivity() {
         binding.FilmDetailSummary.text = movieDesc
         binding.FilmDetailYear.text = movieYear
 
-        // Setup Firebase reference for real-time updates
         movieId?.let {
             movieReference = FirebaseDatabase.getInstance().getReference("Movies").child(it)
             listenForMovieChanges()
@@ -74,7 +73,6 @@ class FilmDetailActivity : AppCompatActivity() {
         }
 
         binding.deleteFilmButton.setOnClickListener {
-            // Handle the deletion logic here
             if (movieId != null) {
                 deleteMovie(movieId)
             } else {
@@ -94,12 +92,11 @@ class FilmDetailActivity : AppCompatActivity() {
     }
 
     private fun listenForMovieChanges() {
-        // Listen for changes to the movie data in real-time
         movieReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val updatedMovie = snapshot.getValue(MovieModel::class.java)
                 updatedMovie?.let {
-                    currentMovie = it  // Store the updated movie data
+                    currentMovie = it
                     updateUI(it)
                 }
             }
@@ -111,7 +108,6 @@ class FilmDetailActivity : AppCompatActivity() {
     }
 
     private fun updateUI(movie: MovieModel) {
-        // Update the UI with new movie data
         binding.FilmDetailName.text = movie.movieName
         binding.FilmDetailSummary.text = movie.movieSummary
         binding.FilmDetailYear.text = movie.movieYear
@@ -133,7 +129,6 @@ class FilmDetailActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Remove the Firebase listener when the activity is destroyed to avoid memory leaks
         movieReference.removeEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {}
             override fun onCancelled(error: DatabaseError) {}

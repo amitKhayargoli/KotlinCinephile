@@ -98,7 +98,7 @@ class MainFragment : Fragment() {
 
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                showItems.clear()  // 🔥 Prevent duplicate items
+                showItems.clear()
 
                 if (snapshot.exists()) {
                     for (issue in snapshot.children) {

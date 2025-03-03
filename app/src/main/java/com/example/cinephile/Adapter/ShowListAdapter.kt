@@ -10,6 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.cinephile.databinding.ViewholderFilmBinding
+import com.example.cinephile.model.MovieModel
 import com.example.cinephile.model.ShowModel
 import com.example.cinephile.ui.activity.FilmDetailActivity
 import com.example.cinephile.ui.activity.ShowDetailActivity
@@ -35,11 +36,15 @@ class ShowListAdapter(private val context: Context, private val items: ArrayList
             binding.root.setOnClickListener {
                 val intent = Intent(context, ShowDetailActivity::class.java).apply {
                     putExtra("showID", show.showId)
-                    putExtra("showTitle", show.showName)
-                    putExtra("showDesc", show.showSummary)
+                    putExtra("showName", show.showName)
+                    putExtra("showSummary", show.showSummary)
                     putExtra("showYear", show.showYear)
                     putExtra("showImdb", show.IMDB)
                     putExtra("showPic", show.imageUrl)
+                    putExtra("showEpisodes",show.showEpisodes)
+                    putExtra("showSeasons",show.showSeasons)
+
+
                 }
                 context.startActivity(intent)
             }
@@ -56,5 +61,14 @@ class ShowListAdapter(private val context: Context, private val items: ArrayList
         holder.bind(items[position])
     }
 
+
+    fun updateData(movies: List<ShowModel>){
+        items.clear()
+        items.addAll(movies)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int = items.size
+
+
 }

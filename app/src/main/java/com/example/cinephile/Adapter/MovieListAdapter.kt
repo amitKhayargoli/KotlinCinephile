@@ -55,9 +55,9 @@ class MovieListAdapter(private val context: Context, private val items: ArrayLis
         holder.bind(items[position])
     }
 
-    fun updateData(products: List<MovieModel>){
+    fun updateData(movies: List<MovieModel>){
         items.clear()
-        items.addAll(products)
+        items.addAll(movies)
         notifyDataSetChanged()
     }
 
